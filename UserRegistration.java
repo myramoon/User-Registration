@@ -1,4 +1,4 @@
-/* Purpose: Validate password with exactly 1 special character */
+/* Purpose: Validate mobile number */
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -76,12 +76,25 @@ public class UserRegistration {
 		
 	}
 
-	public static void main( String[] args ) {
+	/* method to validate mobile number */
+	private void validateMobileNumber() {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Enter mobile number with country code: ");
+		String mobileNum = scan.next();
+		String regexMobileNum = "^([1-9][0-9]){1}[-][1-9]{1}[0-9]{9}$";	       //regex pattern for mobile number
+		Pattern pattern = Pattern.compile(regexMobileNum);
+		Matcher mobileNumMatcher = pattern.matcher(mobileNum);
+		System.out.println(mobileNumMatcher.matches());
+		
+	}
+	
+	public static void main(String[] args) {
 		UserRegistration registration = new UserRegistration();
 		registration.validateFirstName();
 		registration.validateLastName();
 		registration.validateEmail();
 		registration.validatePassword();
+		registration.validateMobileNumber();
 
 	}
 
