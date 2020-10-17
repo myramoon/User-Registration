@@ -1,4 +1,4 @@
-/* Purpose: Validate password with at least 1 number */
+/* Purpose: Validate password with exactly 1 special character */
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -45,25 +45,37 @@ public class UserRegistration {
 	/* method to validate password */
 	private void validatePassword() {
 		Scanner scan = new Scanner(System.in);
-		System.out.println("Enter password with min 8 characters,at least 1 uppercase letter and digit: ");
+		System.out.println("Enter password with min 8 characters,at least 1 uppercase letter, digit and exactly 1 special character: ");
 		String password = scan.next();
-		String regexPassword1 = "^.{8,}";			//regex pattern for min 8 characters
+		String regexPassword1 = "^.{8,}";				 	//regex pattern for min 8 characters
 		Pattern pattern1 = Pattern.compile(regexPassword1);
 		Matcher passwordMatcher1 = pattern1.matcher(password);
-		String regexPassword2 = ".*[A-Z]{1,}.*";	        //regex pattern for min 1 uppercase
+		String regexPassword2 = ".*[A-Z]{1,}.*";		       	 	//regex pattern for min 1 uppercase
 		Pattern pattern2 = Pattern.compile(regexPassword2);
 		Matcher passwordMatcher2 = pattern2.matcher(password);
-		String regexPassword3 = ".*[0-9]{1,}.*";                //regex pattern for min 1 digit
+		String regexPassword3 = ".*[0-9]{1,}.*";	                 	//regex pattern for min 1 digit
                 Pattern pattern3 = Pattern.compile(regexPassword3);
                 Matcher passwordMatcher3 = pattern3.matcher(password);
+		String regexPassword4 = "[A-Za-z0-9]*[\\!\\@\\#\\$\\%\\&][A-Za-z0-9]*";  //regex pattern for exactly 1 special character
+                Pattern pattern4 = Pattern.compile(regexPassword4);
+                Matcher passwordMatcher4 = pattern4.matcher(password);
 
-		if (passwordMatcher1.matches() && passwordMatcher2.matches() && passwordMatcher3.matches() == true) 
-			System.out.println("true");	
-		else 
-			System.out.println("false");
+		if (passwordMatcher4.matches()) 
+			if ( passwordMatcher3.matches()) 
+				if (passwordMatcher2.matches())
+					if (passwordMatcher1.matches())
+						System.out.println("true");	
+					else 
+						System.out.println("False.Password should contain minimum 8 characters.");
+				else
+					 System.out.println("False.Password should contain at least 1 uppercase letter.");	
+			else
+				 System.out.println("False.Password should contain at least 1 digit.");
+		else
+			System.out.println("False.Password should contain exactly 1 special character.");
 		
-
 	}
+
 	public static void main( String[] args ) {
 		UserRegistration registration = new UserRegistration();
 		registration.validateFirstName();
